@@ -1,0 +1,12 @@
+#leafletMapId {
+  height: 400px;
+}
+
+body {
+  font: 16px Arial;
+}
+
+form {
+  display: flex;
+  justify-content: space-around;
+}

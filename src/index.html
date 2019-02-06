@@ -1,0 +1,94 @@
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
+
+    <!-- leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+      integrity="sha384-BF7C732iE6WuqJMhUnTNJJLVvW1TIP87P2nMDY7aN2j2EJFWIaqK89j3WlirhFZU"
+      crossorigin="anonymous"
+    />
+    <!-- leaflet JS -->
+    <script
+      src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+      integrity="sha384-jV/9OyZzm1ZMHG4pfYVMmnnCtVUlZdWgZ8mNSX3CPFM4HSK2KUSP8xzLljzMDkWd"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- chart.js -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"
+      integrity="sha256-MZo5XY1Ah7Z2Aui4/alkfeiq3CopMdV/bbkc/Sh41+s="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Main.css -->
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <form autocomplete="off" class="form-inline" action="/action_page.php">
+      <div class="autocomplete country">
+        <label for="inputCountry">Country</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupCountry">
+              <i class="far fa-flag"></i
+            ></span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            id="inputCountry"
+            placeholder="country"
+            aria-describedby="country"
+            required
+          />
+        </div>
+      </div>
+      <div class="autocomplete town">
+        <label for="inputTown">Town</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupTown">
+              <i class="fas fa-city"></i
+            ></span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            id="inputTown"
+            placeholder="town"
+            aria-describedby="town"
+            required
+          />
+        </div>
+      </div>
+    </form>
+
+    <div id="leafletMapId"></div>
+    <div id="weatherArea"></div>
+
+    <script src="/main.bundle.js"></script>
+  </body>
+</html>
