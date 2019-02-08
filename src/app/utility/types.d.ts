@@ -3,6 +3,10 @@ export declare interface MatchingItem<T> {
   value: T;
 }
 
+export declare type MatcherFunction<T> = (
+  term: string
+) => Promise<MatchingItem<T>[]>;
+
 export declare interface Commune {
   nom: string;
   code: string;

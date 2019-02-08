@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
 const ROOT = path.resolve(__dirname, 'src');
@@ -61,5 +62,6 @@ module.exports = {
   watch: true,
   watchOptions: {
     ignored: /node_modules/
-  }
+  },
+  plugins: [new CopyWebpackPlugin([{ from: 'assets/**/*', to: '.' }])]
 };

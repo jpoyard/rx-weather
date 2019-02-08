@@ -6,7 +6,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-
+    <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+    <title>RxJS Weather</title>
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
@@ -48,42 +49,8 @@
   </head>
   <body>
     <form autocomplete="off" class="form-inline" action="/action_page.php">
-      <div class="autocomplete country">
-        <label for="inputCountry">Country</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroupCountry">
-              <i class="far fa-flag"></i
-            ></span>
-          </div>
-          <input
-            type="text"
-            class="form-control"
-            id="inputCountry"
-            placeholder="country"
-            aria-describedby="country"
-            required
-          />
-        </div>
-      </div>
-      <div class="autocomplete town">
-        <label for="inputTown">Town</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroupTown">
-              <i class="fas fa-city"></i
-            ></span>
-          </div>
-          <input
-            type="text"
-            class="form-control"
-            id="inputTown"
-            placeholder="town"
-            aria-describedby="town"
-            required
-          />
-        </div>
-      </div>
+      <auto-complete id="ac-country" label="Country" icon="far fa-flag" placeholder="country"></auto-complete>
+      <auto-complete id="ac-town" label="Town" icon="fa fa-city" placeholder="town"></auto-complete>
     </form>
 
     <div id="leafletMapId"></div>

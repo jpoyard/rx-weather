@@ -1,4 +1,4 @@
-import { copy, MatchingItem } from '../utility';
+import { copy, MatchingItem, MatcherFunction } from '../utility';
 
 export declare interface HtmlItem<T> {
   label: string;
@@ -6,7 +6,7 @@ export declare interface HtmlItem<T> {
   element: HTMLElement;
 }
 
-export class Autocomplete<T> {
+export class DropdownElement<T> {
   private currentFocus = -1;
   private itemsMap: Map<string, HtmlItem<T>> = new Map<string, HtmlItem<T>>();
   private items: HtmlItem<T>[] = [];
@@ -14,20 +14,25 @@ export class Autocomplete<T> {
   private shadowroot: ShadowRoot;
   private itemsContainer: HTMLElement;
   private inputElement: HTMLInputElement;
+  private selectItem: (item: T) => void;
+  private getItems: MatcherFunction<T>;
 
-  constructor(
-    public autocompleteGroup: HTMLElement,
-    public getItems: (term: string) => Promise<MatchingItem<T>[]>,
-    public selectItem: (item: T) => void = (item: T) => {},
-    public time: string = new Date().toLocaleTimeString()
-  ) {
+  set selectItemFunction(fct: (item: T) => void) {
+    this.selectItem = fct;
+  }
+
+  set matcherFunction(matcher: MatcherFunction<T>) {
+    this.getItems = matcher;
+  }
+
+  constructor(public autocompleteGroup: HTMLElement) {
     /**
      * create container and shadowroot
      */
     this.inputElement = autocompleteGroup.getElementsByTagName('input')[0];
     this.component = document.createElement('DIV');
     this.shadowroot = this.component.attachShadow({ mode: 'open' });
-    this.shadowroot.innerHTML = `<style>${require('./autocomplete.css')}</style>`;
+    this.shadowroot.innerHTML = `<style>${require('./autocomplete.element.css')}</style>`;
     this.autocompleteGroup.appendChild(this.component);
 
     /**
@@ -234,7 +239,9 @@ export class Autocomplete<T> {
     if (this.itemsMap.has(value)) {
       const item = this.itemsMap.get(value);
       this.inputElement.value = item.label;
-      this.selectItem(item.value);
+      if (this.selectItem) {
+        this.selectItem(item.value);
+      }
       this.cleanItems();
     }
   }

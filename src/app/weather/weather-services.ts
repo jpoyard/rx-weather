@@ -4,21 +4,21 @@ import {
   ForecastDaily
 } from '../utility';
 
+import { APP_ID } from './../../environment';
+
 export function getWeather({
   lat,
-  lon,
-  appId
+  lon
 }: {
   lat: number;
   lon: number;
-  appId: string;
 }): Promise<WeatherAtPosition> {
   return new Promise((resolve, reject) => {
     const client = new XMLHttpRequest();
     const queryParams = convertToQueryString([
       { name: 'lat', value: lat },
       { name: 'lon', value: lon },
-      { name: 'appid', value: appId }
+      { name: 'appid', value: APP_ID }
     ]);
 
     client.open(
@@ -40,17 +40,15 @@ export function getWeather({
 }
 
 export function getForecastDaily({
-  id,
-  appId
+  id
 }: {
   id: number;
-  appId: string;
 }): Promise<ForecastDaily> {
   return new Promise((resolve, reject) => {
     const client = new XMLHttpRequest();
     const queryParams = convertToQueryString([
       { name: 'id', value: id },
-      { name: 'appid', value: appId },
+      { name: 'appid', value: APP_ID },
       { name: 'units', value: 'metric' }
     ]);
 

@@ -1,7 +1,6 @@
 import {
   LatLngLiteral,
   LatLngExpression,
-  LayerGroup,
   Map,
   Marker,
   Polygon
