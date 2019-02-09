@@ -1,1 +1,1 @@
-export * from './leaflet.class';
+export * from './leaflet.element';

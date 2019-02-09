@@ -1,24 +1,17 @@
-import {
-  LatLngLiteral,
-  LatLngExpression,
-  Map,
-  Marker,
-  Polygon
-} from 'leaflet';
+import { LatLngLiteral, LatLngExpression, Map, Marker, Polygon } from 'leaflet';
 import { Commune } from '../utility';
 
 declare const L: any;
 
-export class LeafletAdapter {
+export class LeafletElement extends HTMLElement {
+  private shadow: ShadowRoot;
   private map: Map;
   private markers: Marker[] = [];
   private polygons: Polygon[] = [];
-  constructor(private mapId: string) {
-    this.init();
-  }
+  constructor() {
+    super();
 
-  init() {
-    this.map = L.map(this.mapId);
+    this.map = L.map(this);
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
       attribution:
         'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',

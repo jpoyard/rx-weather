@@ -1,11 +1,11 @@
-#leafletMapId {
-  height: 400px;
-}
-
-body {
+:host {
   font: 16px Arial;
   display: flex;
   flex-direction: column;
+}
+
+#leafletMapId {
+  height: 400px;
 }
 
 form {

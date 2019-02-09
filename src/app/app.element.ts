@@ -1,11 +1,9 @@
-import { LeafletAdapter } from './leaflet/leaflet.class';
+import { AutocompleteElement } from './autocomplete';
+import { LeafletElement } from './leaflet';
 import { getMatchedTowns } from './town';
 import { Commune } from './utility';
 import { getMatchedCountries } from './country';
-import { getWeather, getForecastDaily } from './weather/weather-services';
-import { WeatherInfoElement } from './weather/weather-info.element';
-
-import { AutocompleteElement } from './autocomplete/autocomplete.element';
+import { getWeather, getForecastDaily, WeatherInfoElement } from './weather';
 
 export function initialize() {
   /**
@@ -13,20 +11,24 @@ export function initialize() {
    */
   customElements.define('auto-complete', AutocompleteElement);
   customElements.define('weather-info', WeatherInfoElement);
-
-  const map = new LeafletAdapter('leafletMapId');
+  customElements.define('leaflet-map', LeafletElement);
 
   /**
    * initialize autocomplete matcher
    */
-  (document.getElementById('ac-country') as AutocompleteElement<
-    string
-  >).matcherFunction = getMatchedCountries;
+  const autocompleteCountry = (document.getElementById(
+    'ac-country'
+  ) as AutocompleteElement<string>) as AutocompleteElement<string>;
+  autocompleteCountry.matcherFunction = getMatchedCountries;
 
   const autocompleteTown = document.getElementById(
     'ac-town'
   ) as AutocompleteElement<Commune>;
   autocompleteTown.matcherFunction = getMatchedTowns;
+
+  const leafletElement = document.querySelector(
+    'leaflet-map'
+  ) as LeafletElement;
 
   const weatherInfoElement = document.querySelector(
     'weather-info'
@@ -37,7 +39,7 @@ export function initialize() {
   });
 
   autocompleteTown.selectItem.on('select', (commune: Commune) => {
-    map.selectTown(commune);
+    leafletElement.selectTown(commune);
     getWeather({
       lat: commune.centre.coordinates[1],
       lon: commune.centre.coordinates[0]
