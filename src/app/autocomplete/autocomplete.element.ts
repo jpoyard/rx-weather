@@ -1,3 +1,4 @@
+import { EventEmitter } from 'events';
 import { MatcherFunction } from '../utility';
 import { DropdownElement } from './dropdown.element';
 
@@ -49,8 +50,8 @@ export class AutocompleteElement<T> extends HTMLElement {
     this.dropdownElement.matcherFunction = matcher;
   }
 
-  set selectItemFunction(fct: (item: T) => void) {
-    this.dropdownElement.selectItemFunction = fct;
+  get selectItem(): EventEmitter {
+    return this.dropdownElement.selectItem;
   }
 
   constructor() {

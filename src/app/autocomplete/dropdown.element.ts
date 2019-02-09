@@ -1,5 +1,7 @@
 import { copy, MatchingItem, MatcherFunction } from '../utility';
 
+import { EventEmitter } from 'events';
+
 export declare interface HtmlItem<T> {
   label: string;
   value: T;
@@ -14,11 +16,11 @@ export class DropdownElement<T> {
   private shadowroot: ShadowRoot;
   private itemsContainer: HTMLElement;
   private inputElement: HTMLInputElement;
-  private selectItem: (item: T) => void;
   private getItems: MatcherFunction<T>;
 
-  set selectItemFunction(fct: (item: T) => void) {
-    this.selectItem = fct;
+  private _selectItem: EventEmitter = new EventEmitter();
+  public get selectItem(): EventEmitter {
+    return this._selectItem;
   }
 
   set matcherFunction(matcher: MatcherFunction<T>) {
@@ -239,9 +241,7 @@ export class DropdownElement<T> {
     if (this.itemsMap.has(value)) {
       const item = this.itemsMap.get(value);
       this.inputElement.value = item.label;
-      if (this.selectItem) {
-        this.selectItem(item.value);
-      }
+      this._selectItem.emit('select', item.value);
       this.cleanItems();
     }
   }

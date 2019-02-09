@@ -3,7 +3,7 @@ import { getMatchedTowns } from './town';
 import { Commune } from './utility';
 import { getMatchedCountries } from './country';
 import { getWeather, getForecastDaily } from './weather/weather-services';
-import { WeatherArea } from './weather/weather-area.class';
+import { WeatherInfoElement } from './weather/weather-info.element';
 
 import { AutocompleteElement } from './autocomplete/autocomplete.element';
 
@@ -12,9 +12,9 @@ export function initialize() {
    * load custom component
    */
   customElements.define('auto-complete', AutocompleteElement);
+  customElements.define('weather-info', WeatherInfoElement);
 
   const map = new LeafletAdapter('leafletMapId');
-  const weatherArea = new WeatherArea(document.getElementById('weatherArea'));
 
   /**
    * initialize autocomplete matcher
@@ -27,9 +27,16 @@ export function initialize() {
     'ac-town'
   ) as AutocompleteElement<Commune>;
   autocompleteTown.matcherFunction = getMatchedTowns;
-  autocompleteTown.selectItemFunction = selectTown;
 
-  function selectTown(commune: Commune) {
+  const weatherInfoElement = document.querySelector(
+    'weather-info'
+  ) as WeatherInfoElement;
+
+  autocompleteTown.selectItem.on('select', (commune: Commune) => {
+    console.table(commune);
+  });
+
+  autocompleteTown.selectItem.on('select', (commune: Commune) => {
     map.selectTown(commune);
     getWeather({
       lat: commune.centre.coordinates[1],
@@ -38,7 +45,7 @@ export function initialize() {
       weatherPosition => {
         getForecastDaily({ id: weatherPosition.id }).then(
           forecastDaily =>
-            weatherArea.update({
+            weatherInfoElement.update({
               town: commune,
               weatherPosition,
               forecastDaily
@@ -48,5 +55,5 @@ export function initialize() {
       },
       reject => console.error(reject)
     );
-  }
+  });
 }

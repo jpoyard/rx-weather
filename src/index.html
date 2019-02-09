@@ -49,12 +49,22 @@
   </head>
   <body>
     <form autocomplete="off" class="form-inline" action="/action_page.php">
-      <auto-complete id="ac-country" label="Country" icon="far fa-flag" placeholder="country"></auto-complete>
-      <auto-complete id="ac-town" label="Town" icon="fa fa-city" placeholder="town"></auto-complete>
+      <auto-complete
+        id="ac-country"
+        label="Country"
+        icon="far fa-flag"
+        placeholder="country"
+      ></auto-complete>
+      <auto-complete
+        id="ac-town"
+        label="Town"
+        icon="fa fa-city"
+        placeholder="town"
+      ></auto-complete>
     </form>
 
     <div id="leafletMapId"></div>
-    <div id="weatherArea"></div>
+    <weather-info></weather-info>
 
     <script src="/main.bundle.js"></script>
   </body>
