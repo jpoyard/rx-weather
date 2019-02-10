@@ -3,6 +3,8 @@ export declare interface MatchingItem<T> {
   value: T;
 }
 
+export declare type MatcherResult<T> = Promise<MatchingItem<T>[]>;
+
 export declare type MatcherFunction<T> = (
   term: string
 ) => Promise<MatchingItem<T>[]>;

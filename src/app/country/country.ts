@@ -1,10 +1,8 @@
-import { MatchingItem } from '../utility';
+import { MatcherResult } from '../utility';
 
 const countriesItems: string[] = require('./countries.json');
 
-export function getMatchedCountries(
-  term: string
-): Promise<MatchingItem<string>[]> {
+export function getMatchedCountries(term: string): MatcherResult<string> {
   return new Promise(resolve => {
     resolve(
       countriesItems

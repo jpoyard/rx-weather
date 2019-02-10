@@ -1,4 +1,4 @@
-import { Commune, MatchingItem, convertToQueryString } from '../utility';
+import { Commune, MatchingItem, convertToQueryString, MatcherResult } from '../utility';
 
 const WANTED_PROPERTIES = [
   'nom',
@@ -16,7 +16,7 @@ const WANTED_PROPERTIES = [
 
 export function getMatchedTowns(
   query: string
-): Promise<MatchingItem<Commune>[]> {
+): MatcherResult<Commune> {
   return new Promise<MatchingItem<Commune>[]>((resolve, reject) => {
     const client = new XMLHttpRequest();
     const fields = WANTED_PROPERTIES.join(',');
