@@ -21,3 +21,8 @@
   - [x] update `autocomplete.element.ts` file
   - [x] update `app.element.ts` file
 
+## Step 4 (Operators)
+
+- [x] use operators `filter`, `map` and `toArray` in `country.ts` file
+- [x] use operators `debounceTime`, `map` and `distinctUntilChanged` in `autocomplete.element.ts` file
+- [x] use operators `combineLatest` and `switchMap` in `app.element.ts` file

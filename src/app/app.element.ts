@@ -5,6 +5,9 @@ import { Commune } from './utility';
 import { getMatchedCountries } from './country';
 import { getWeather, getForecastDaily, WeatherInfoElement } from './weather';
 
+import { combineLatest } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
 export function initialize() {
   /**
    * load custom component
@@ -34,28 +37,42 @@ export function initialize() {
     'weather-info'
   ) as WeatherInfoElement;
 
-  autocompleteTown.selectItem.subscribe((commune: Commune) => {
-    console.table(commune);
+  const communeObservable = autocompleteTown.selectItem;
+
+  /**
+   * Update leafletElement
+   */
+  communeObservable.subscribe((commune: Commune) => {
+    leafletElement.selectTown(commune);
   });
 
-  autocompleteTown.selectItem.subscribe((commune: Commune) => {
-    leafletElement.selectTown(commune);
-    getWeather({
-      lat: commune.centre.coordinates[1],
-      lon: commune.centre.coordinates[0]
-    }).subscribe(
-      weatherPosition => {
-        getForecastDaily({ id: weatherPosition.id }).subscribe(
-          forecastDaily =>
-            weatherInfoElement.update({
-              town: commune,
-              weatherPosition,
-              forecastDaily
-            }),
-          reject => console.error(reject)
-        );
-      },
-      reject => console.error(reject)
-    );
-  });
+  /**
+   * Retrieve weather
+   */
+  const weatherPositionObservable = autocompleteTown.selectItem.pipe(
+    switchMap((commune: Commune) =>
+      getWeather({
+        lat: commune.centre.coordinates[1],
+        lon: commune.centre.coordinates[0]
+      })
+    )
+  );
+
+  /**
+   * Update weatherInfoElement
+   */
+  combineLatest(communeObservable, weatherPositionObservable).subscribe(
+    ([commune, weatherPosition]) => {
+      getForecastDaily({ id: weatherPosition.id }).subscribe(
+        forecastDaily =>
+          weatherInfoElement.update({
+            town: commune,
+            weatherPosition,
+            forecastDaily
+          }),
+        reject => console.error(reject)
+      );
+    },
+    reject => console.error(reject)
+  );
 }

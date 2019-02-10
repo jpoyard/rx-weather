@@ -1,5 +1,6 @@
 import { copy, MatcherFunction, MatchingItem } from '../utility';
-import { fromEvent, BehaviorSubject, Subject, Observable } from 'rxjs';
+import { fromEvent, Subject, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 declare interface HtmlItem<T> {
   label: string;
@@ -84,9 +85,13 @@ export class AutocompleteElement<T> extends HTMLElement {
     this.inputElement = this.shadow.querySelector('input');
 
     /*execute a function when someone writes in the text field:*/
-    fromEvent(this.inputElement, 'input').subscribe(() =>
-      this.inputChangeListener()
-    );
+    fromEvent(this.inputElement, 'input')
+      .pipe(
+        debounceTime(400),
+        map(() => this.inputElement.value),
+        distinctUntilChanged()
+      )
+      .subscribe(term => this.inputChangeListener(term));
 
     document.addEventListener('click', this.documentClickListener.bind(this));
 
