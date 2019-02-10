@@ -7,7 +7,7 @@ export declare type MatcherResult<T> = Promise<MatchingItem<T>[]>;
 
 export declare type MatcherFunction<T> = (
   term: string
-) => Promise<MatchingItem<T>[]>;
+) => MatcherResult<T>;
 
 export declare interface Commune {
   nom: string;
