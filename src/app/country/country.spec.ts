@@ -16,7 +16,7 @@ describe('getMatchedCountries', () => {
       }));
 
       // When
-      getMatchedCountries(term).then(
+      getMatchedCountries(term).subscribe(
         (actual: MatchingItem<string>[]) => {
           // Then
           expect(actual).toEqual(expected);
