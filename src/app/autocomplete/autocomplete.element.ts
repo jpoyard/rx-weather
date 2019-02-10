@@ -123,7 +123,6 @@ export class AutocompleteElement<T> extends HTMLElement {
    * @param event
    */
   public inputKeyDownListener(event: KeyboardEvent) {
-    console.info(event);
     if (event.keyCode === 40) {
       /**
        * If the arrow DOWN key is pressed, increase the currentFocus variable:
