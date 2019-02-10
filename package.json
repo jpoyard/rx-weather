@@ -27,6 +27,7 @@
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "1.1.2",
     "karma-webpack": "3.0.0",
+    "rxjs-tslint": "^0.1.6",
     "source-map-loader": "0.2.3",
     "to-string-loader": "^1.1.5",
     "tslint": "5.10.0",
@@ -37,7 +38,9 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "@reactivex/rxjs": "^6.4.0",
     "@types/chart.js": "^2.7.42",
-    "chart.js": "^2.7.3"
+    "chart.js": "^2.7.3",
+    "rxjs": "^6.4.0"
   }
 }
