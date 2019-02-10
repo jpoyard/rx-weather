@@ -1,4 +1,4 @@
-## Steps
+## Step1
 
 - [x] install [RxJs](https://github.com/reactivex/rxjs) and [@reactivex/rxjs](https://github.com/reactivex/rxjs) dependencies
 - [x] install [rxjs-tslint](https://github.com/ReactiveX/rxjs-tslint) linter
@@ -9,3 +9,8 @@
   - [x] update `autocomplete.element.ts` file
   - [x] update `app.element.ts` file
   - [x] update `country.spec.ts` file
+
+## Step2
+
+- [x] replace addEventListener (`input` event) by Observable
+  - [x] update `autocomplete.element.ts` file
