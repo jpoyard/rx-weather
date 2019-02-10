@@ -34,11 +34,11 @@ export function initialize() {
     'weather-info'
   ) as WeatherInfoElement;
 
-  autocompleteTown.selectItem.on('select', (commune: Commune) => {
+  autocompleteTown.selectItem.subscribe((commune: Commune) => {
     console.table(commune);
   });
 
-  autocompleteTown.selectItem.on('select', (commune: Commune) => {
+  autocompleteTown.selectItem.subscribe((commune: Commune) => {
     leafletElement.selectTown(commune);
     getWeather({
       lat: commune.centre.coordinates[1],

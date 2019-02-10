@@ -1,6 +1,5 @@
-import { EventEmitter } from 'events';
 import { copy, MatcherFunction, MatchingItem } from '../utility';
-import { fromEvent } from 'rxjs';
+import { fromEvent, BehaviorSubject, Subject, Observable } from 'rxjs';
 
 declare interface HtmlItem<T> {
   label: string;
@@ -58,9 +57,9 @@ export class AutocompleteElement<T> extends HTMLElement {
   private itemsMap: Map<string, HtmlItem<T>> = new Map<string, HtmlItem<T>>();
   private inputElement: HTMLInputElement;
 
-  private _selectItem: EventEmitter = new EventEmitter();
-  public get selectItem(): EventEmitter {
-    return this._selectItem;
+  private _selectItem = new Subject<T>();
+  public get selectItem(): Observable<T> {
+    return this._selectItem.asObservable();
   }
 
   private _matcherFunction: MatcherFunction<T>;
@@ -278,7 +277,7 @@ export class AutocompleteElement<T> extends HTMLElement {
     if (this.itemsMap.has(value)) {
       const item = this.itemsMap.get(value);
       this.inputElement.value = item.label;
-      this._selectItem.emit('select', item.value);
+      this._selectItem.next(item.value);
       this.cleanItems();
     }
   }

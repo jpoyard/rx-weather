@@ -1,5 +1,6 @@
 import { MatcherResult } from '../utility';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { multicast } from 'rxjs/operators';
 
 const countriesItems: string[] = require('./countries.json');
 
@@ -21,6 +22,10 @@ export function getMatchedCountries(term: string): MatcherResult<string> {
 
 // const obs = getMatchedCountries('fran');
 
-// const sub1 = obs.subscribe(r => console.info(r));
-// const sub2 = obs.subscribe(r => console.info(r));
-// const sub3 = obs.subscribe(r => console.info(r));
+// const multi: any = obs.pipe(multicast(() => new Subject()));
+
+// const sub1 = multi.subscribe((r: any) => console.info(r));
+// const sub2 = multi.subscribe((r: any) => console.info(r));
+// const sub3 = multi.subscribe((r: any) => console.info(r));
+
+// multi.connect();
