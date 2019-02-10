@@ -1,13 +1,13 @@
+import { Observable } from 'rxjs';
+
 export declare interface MatchingItem<T> {
   label: string;
   value: T;
 }
 
-export declare type MatcherResult<T> = Promise<MatchingItem<T>[]>;
+export declare type MatcherResult<T> = Observable<MatchingItem<T>[]>;
 
-export declare type MatcherFunction<T> = (
-  term: string
-) => MatcherResult<T>;
+export declare type MatcherFunction<T> = (term: string) => MatcherResult<T>;
 
 export declare interface Commune {
   nom: string;

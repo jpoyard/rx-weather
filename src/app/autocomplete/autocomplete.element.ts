@@ -103,19 +103,15 @@ export class AutocompleteElement<T> extends HTMLElement {
   public inputChangeListener() {
     const term = this.inputElement.value;
 
-    this.matcherFunction(term)
-      .then(
-        resolve => {
-          this.createItemsList(term, resolve.slice(0, 10));
-        },
-        reject => {
-          this.cleanItems();
-          console.error(reject);
-        }
-      )
-      .catch(err => {
-        console.error(err);
-      });
+    this.matcherFunction(term).subscribe(
+      resolve => {
+        this.createItemsList(term, resolve.slice(0, 10));
+      },
+      reject => {
+        this.cleanItems();
+        console.error(reject);
+      }
+    );
   }
 
   /**
@@ -123,7 +119,6 @@ export class AutocompleteElement<T> extends HTMLElement {
    * @param event
    */
   public inputKeyDownListener(event: KeyboardEvent) {
-    console.info(event);
     if (event.keyCode === 40) {
       /**
        * If the arrow DOWN key is pressed, increase the currentFocus variable:

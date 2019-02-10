@@ -43,9 +43,9 @@ export function initialize() {
     getWeather({
       lat: commune.centre.coordinates[1],
       lon: commune.centre.coordinates[0]
-    }).then(
+    }).subscribe(
       weatherPosition => {
-        getForecastDaily({ id: weatherPosition.id }).then(
+        getForecastDaily({ id: weatherPosition.id }).subscribe(
           forecastDaily =>
             weatherInfoElement.update({
               town: commune,

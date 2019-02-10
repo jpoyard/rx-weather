@@ -5,6 +5,7 @@ import {
 } from '../utility';
 
 import { APP_ID } from './../../environment';
+import { Observable } from 'rxjs';
 
 export function getWeather({
   lat,
@@ -12,8 +13,8 @@ export function getWeather({
 }: {
   lat: number;
   lon: number;
-}): Promise<WeatherAtPosition> {
-  return new Promise((resolve, reject) => {
+}): Observable<WeatherAtPosition> {
+  return new Observable(observer => {
     const client = new XMLHttpRequest();
     const queryParams = convertToQueryString([
       { name: 'lat', value: lat },
@@ -29,9 +30,12 @@ export function getWeather({
     client.onreadystatechange = () => {
       if (client.readyState === 4) {
         if (client.status === 200) {
-          resolve(JSON.parse(client.responseText) as WeatherAtPosition);
+          observer.next(JSON.parse(client.responseText) as WeatherAtPosition);
+          observer.complete();
         } else {
-          reject(client.statusText ? client.statusText : 'unexpected error');
+          observer.error(
+            client.statusText ? client.statusText : 'unexpected error'
+          );
         }
       }
     };
@@ -43,8 +47,8 @@ export function getForecastDaily({
   id
 }: {
   id: number;
-}): Promise<ForecastDaily> {
-  return new Promise((resolve, reject) => {
+}): Observable<ForecastDaily> {
+  return new Observable(observer => {
     const client = new XMLHttpRequest();
     const queryParams = convertToQueryString([
       { name: 'id', value: id },
@@ -60,9 +64,12 @@ export function getForecastDaily({
     client.onreadystatechange = () => {
       if (client.readyState === 4) {
         if (client.status === 200) {
-          resolve(JSON.parse(client.responseText) as ForecastDaily);
+          observer.next(JSON.parse(client.responseText) as ForecastDaily);
+          observer.complete();
         } else {
-          reject(client.statusText ? client.statusText : 'unexpected error');
+          observer.error(
+            client.statusText ? client.statusText : 'unexpected error'
+          );
         }
       }
     };

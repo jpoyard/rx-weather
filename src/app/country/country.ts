@@ -1,10 +1,11 @@
 import { MatcherResult } from '../utility';
+import { Observable } from 'rxjs';
 
 const countriesItems: string[] = require('./countries.json');
 
 export function getMatchedCountries(term: string): MatcherResult<string> {
-  return new Promise(resolve => {
-    resolve(
+  return new Observable(observer => {
+    observer.next(
       countriesItems
         .filter(item => item.toUpperCase().includes(term.toUpperCase()))
         .map(value => ({
@@ -12,5 +13,6 @@ export function getMatchedCountries(term: string): MatcherResult<string> {
           value
         }))
     );
+    observer.complete();
   });
 }
